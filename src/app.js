@@ -10,7 +10,7 @@ import electronGoogleOauth from 'electron-google-oauth';
 import * as firebase from "firebase";
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
-import { sidebar,playground } from "./start/index";
+import { sidebar, playground, field } from "./start/index";
 import env from "env";
 
 const app = remote.app;
@@ -41,7 +41,7 @@ var provider = new firebase.auth.GoogleAuthProvider();
 document.querySelector("#app").style.display = "block";
 document.querySelector("#app").innerHTML = sidebar();
 document.querySelector("#playground").innerHTML = playground();
-
+document.querySelector("#field_area").innerHTML = field();
 
 //------Click Listeners-------
 document.querySelector("#login_btn").addEventListener("click", function(){
