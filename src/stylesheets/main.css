@@ -1,0 +1,67 @@
+@font-face {
+  font-family: Abel;
+  src: url('../assets/abel.ttf');
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #5328b8;
+  color: #FFF;
+}
+
+body {
+  display: flex;
+  font-family: sans-serif;
+  color: #525252;
+  font-family: Abel;
+}
+
+a {
+  text-decoration: none;
+  color: #cb3837;
+}
+
+.container {
+  text-align: center;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+#header {
+  height: 60px;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  padding-top: 20px;
+  color: #FFF;
+  font-size: 20px;
+  font-family: Abel;
+}
+
+#sidebar {
+  position: fixed;
+  height: 100%;
+  width: 20%;
+  text-align: left;
+  padding: 20px;
+  color: #FFF;
+  font-size: 40px;
+  font-family: Abel;
+  background: #391a81;
+}
+
+#fb_login {
+  position: relative;
+  top: 200px;
+  width: 100%;
+  height: 100%;
+  color: #FFF;
+  padding: 10px;
+  text-align: center;
+}
