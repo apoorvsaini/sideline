@@ -1,3 +1,4 @@
+import "./stylesheets/milligram.css";
 import "./stylesheets/main.css";
 
 
@@ -5,6 +6,7 @@ import "./stylesheets/main.css";
 import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
 
+import electronGoogleOauth from 'electron-google-oauth';
 import * as firebase from "firebase";
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
@@ -40,3 +42,8 @@ document.querySelector("#app").style.display = "block";
 document.querySelector("#app").innerHTML = sidebar();
 document.querySelector("#playground").innerHTML = playground();
 
+
+//------Click Listeners-------
+document.querySelector("#login_btn").addEventListener("click", function(){
+
+});

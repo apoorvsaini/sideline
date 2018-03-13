@@ -82,3 +82,4 @@ export default (name, options) => {
 
   return win;
 };
+

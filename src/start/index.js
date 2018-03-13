@@ -1,4 +1,4 @@
-var loginDom = '<input id="email_id_text"></input><br><input id="pass_text"></input><br><button onClick="test()">Login</button>';
+var loginDom = '<button id="login_btn" onClick="test()">Login via Google</button>';
 
 
 export const greet = () => {
@@ -6,11 +6,11 @@ export const greet = () => {
 };
 
 export const sidebar = () => {
-  return '<div id="sidebar"><div id="header"><img src="../src/assets/img/sideline.png" height="70"/></div>'+loginDom+'</div><div id="playground">ds</div>';
+  return '<div id="sidebar"><div id="header"><img src="../src/assets/img/sideline.png" height="70"/></div><div id="logo">SIDELINE \'18</div>'+loginDom+'</div><div id="playground"></div>';
 };
 
 export const playground = () => {
-  return 'SIDELINE \'18';
+  return '';
 };
 
 export const bye = () => {
