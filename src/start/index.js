@@ -12,7 +12,7 @@ export const playground = () => {
 };
 
 export const field = () => {
-  return '<div id="field"></div>';
+  return '<div id="field"><span id="away_1" class="player_away"><span id="ball"></span></span></div>';
 };
 
 export const bye = () => {

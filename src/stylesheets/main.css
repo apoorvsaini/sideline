@@ -11,6 +11,7 @@ body {
   background: #FFF;
   color: #000;
   font-family: Abel;
+  min-width: 500px;
 }
 
 body {
@@ -55,19 +56,25 @@ a {
   font-size: 40px;
   font-family: Abel;
   background: #5328b8;
+  min-width: 250px;
 }
 
 #playground {
   position: fixed;
   height: 100%;
-  width: 70%;
-  left: 25%;
+  width: 75%;
+  left: 300px;
   padding: 20px;
   padding-top: 40px;
   text-align: center;
   color: #000;
   font-size: 40px;
   font-family: Abel;
+  align-self: center;
+  text-align: center;
+  align-items: center;
+  min-width: 450px;
+  overflow: scroll;
 }
 
 #fb_login {
@@ -100,9 +107,9 @@ a {
 #field_area {
   position: relative;
   top: 50px;
-  width: 90%;
-  height: 65%;
-  left: 5%;
+  width: 700px;
+  height: 450px;
+  margin: auto;
   align-self: center;
   text-align: center;
   align-items: center;
@@ -118,17 +125,33 @@ a {
 }
 
 .player_away {
-  width: 30px;
-  height: 30px;
-  border-radius: 30px;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
   background: teal;
 }
 
-.away_away {
-  width: 30px;
-  height: 30px;
-  border-radius: 30px;
+.player_away {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
   background: #f31818;
+}
+
+#ball {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background: #FFF;
+  position: absolute;
+  left: 270px;
+  top: 150px; 
+}
+
+#away_1 {
+  position: absolute;
+  left: 70px;
+  top: 70px;
 }
 
 .team_name {
