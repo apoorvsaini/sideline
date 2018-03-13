@@ -76,6 +76,7 @@ export default (name, options) => {
 
   state = ensureVisibleOnSomeDisplay(restore());
 
+  options.titleBarStyle = 'hidden';
   win = new BrowserWindow(Object.assign({}, options, state));
 
   win.on("close", saveState);

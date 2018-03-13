@@ -1,7 +1,7 @@
-var matchDetails = {home: 0, away: 0, time: 0};
+var matchDetails = {homeScore: 0, awayScore: 0, time: 0, awayTeam:"Chelsea FC", homeTeam:"Barcelona FC"};
 
 var loginDom = '<button id="login_btn" onClick="test()">Login via Google</button>';
-var scoreCardDom = '<div id="score_card">'+matchDetails.home+' : '+matchDetails.away+'</div>';
+var scoreCardDom = '<div id="score_card"> <span class="team_name left_right_margin">'+matchDetails.awayTeam+'</span> '+matchDetails.homeScore+' : '+matchDetails.awayScore+' <span class="team_name left_right_margin">'+matchDetails.homeTeam+'</span></div>';
 
 export const greet = () => {
   return "Hello World!";
