@@ -9,7 +9,7 @@
   "homepage": "",
   "main": "app/background.js",
   "build": {
-    "appId": "com.apoorv.pipe",
+    "appId": "com.apoorv.sideline",
     "files": [
       "app/**/*",
       "node_modules/**/*",

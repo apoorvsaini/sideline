@@ -8,8 +8,9 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: #5328b8;
-  color: #FFF;
+  background: #FFF;
+  color: #000;
+  font-family: Abel;
 }
 
 body {
@@ -53,7 +54,18 @@ a {
   color: #FFF;
   font-size: 40px;
   font-family: Abel;
-  background: #391a81;
+  background: #5328b8;
+}
+
+#playground {
+  position: fixed;
+  height: 100%;
+  width: 80%;
+  left: 20%;
+  padding: 20px;
+  color: #000;
+  font-size: 40px;
+  font-family: Abel;
 }
 
 #fb_login {

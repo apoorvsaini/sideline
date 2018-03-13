@@ -8,14 +8,12 @@ import "./helpers/external_links.js";
 
 import { remote } from "electron";
 import jetpack from "fs-jetpack";
-import { sidebar } from "./start/index";
+import { sidebar,playground } from "./start/index";
 import env from "env";
 
 const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
 
-// Holy crap! This is browser window with HTML and stuff, but I can read
-// files from disk like it's node.js! Welcome to Electron world :)
 const manifest = appDir.read("package.json", "json");
 
 const osMap = {
@@ -26,3 +24,4 @@ const osMap = {
 
 document.querySelector("#app").style.display = "block";
 document.querySelector("#app").innerHTML = sidebar();
+document.querySelector("#playground").innerHTML = playground();
