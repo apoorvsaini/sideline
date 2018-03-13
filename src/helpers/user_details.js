@@ -1,0 +1,1 @@
+var user_details =  {emailId : "a@a.com", loggedIn : true};

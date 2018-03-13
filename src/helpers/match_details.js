@@ -1,0 +1,1 @@
+var matchDetails = {home: 0, away: 0, time: 0};

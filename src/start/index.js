@@ -1,5 +1,7 @@
-var loginDom = '<button id="login_btn" onClick="test()">Login via Google</button>';
+var matchDetails = {home: 0, away: 0, time: 0};
 
+var loginDom = '<button id="login_btn" onClick="test()">Login via Google</button>';
+var scoreCardDom = '<div id="score_card">'+matchDetails.home+' : '+matchDetails.away+'</div>';
 
 export const greet = () => {
   return "Hello World!";
@@ -10,7 +12,7 @@ export const sidebar = () => {
 };
 
 export const playground = () => {
-  return '';
+  return scoreCardDom;
 };
 
 export const bye = () => {

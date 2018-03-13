@@ -89,3 +89,10 @@ a {
   position: relative;
   top:30px;
 }
+
+#score_card {
+  font-size: 30px;
+  color: #000;
+  position: relative;
+  top: 0px;
+}

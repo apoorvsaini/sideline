@@ -2,9 +2,10 @@ import "./stylesheets/milligram.css";
 import "./stylesheets/main.css";
 
 
-// Small helpers you might want to keep
 import "./helpers/context_menu.js";
 import "./helpers/external_links.js";
+import "./helpers/user_details.js";
+import "./helpers/match_details.js";
 
 import electronGoogleOauth from 'electron-google-oauth';
 import * as firebase from "firebase";
