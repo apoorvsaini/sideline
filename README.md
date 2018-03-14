@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://ph-files.imgix.net/0745c2fb-5890-4c9d-9d0d-81901bedb284?auto=format&auto=compress&codec=mozjpeg&cs=strip&w=100&fit=max&dpr=2" width="50%" height="50%" alt="Sideline '18"/>
+  <img src="https://ph-files.imgix.net/0745c2fb-5890-4c9d-9d0d-81901bedb284?auto=format&auto=compress&codec=mozjpeg&cs=strip&w=100&fit=max&dpr=2" width="100" height="100" alt="Sideline '18"/>
 </p>
 
 
