@@ -23,6 +23,8 @@ const store = new Store({
     }
 });
 
+var inGame = false;
+
 var matchDetails = {homeScore: 0, awayScore: 0, time: 0, awayTeam:"Chelsea FC", homeTeam:"Barcelona FC"};
 var playerWithBall = "away_1"; //hold the id
 var versus = ""; //user_id of opponent
@@ -49,9 +51,12 @@ var totalWidth = 0;
 var ballIncrement = 0;
 function startMatch() {
     //update timer
-    matchTimer = setInterval(updateMatch, 2000);
-    totalWidth = document.getElementById('field').offsetWidth;
-    ballIncrement = totalWidth/90;
+    if (inGame == false) {
+        inGame = true;
+        matchTimer = setInterval(updateMatch, 2000);
+        totalWidth = document.getElementById('field').offsetWidth;
+        ballIncrement = totalWidth/90;
+    }
 }
 
 function updateMatch() {
@@ -67,11 +72,13 @@ function updateMatch() {
     var left = $("#ball").position().left;
     $("#ball").animate({ top: top, left: left+ballIncrement},2000);
 
-    //initiate commentary algo 
+    //generate commentary
+    comment(); 
 }
 
 function stopMatch(){
-    clearInterval(matchTimer)
+    clearInterval(matchTimer);
+    inGame = false;
 }
 
 function updateScore() {
