@@ -17,17 +17,28 @@ function publishAvailableMessage() {
         console.log(status, response);
     })
 }
+
+function publishSingleAvailableMessage(id) {
+    var publishConfig = {
+        channel : id,
+        message : {"available":available,"id":store.get('team_id'),"name":store.get('name')}
+    }
+    pubnub.publish(publishConfig, function(status, response) {
+        console.log(status, response);
+    })
+}
+
+
     
 pubnub.addListener({
     status: function(statusEvent) {
         if (statusEvent.category === "PNConnectedCategory") {
-            publishSampleMessage();
+            publishAvailableMessage();
         }
     },
     message: function(message) {
         console.log("New Message!!", message);
-        if (message.channel == "all" && message.message.id != store.get('team_id')) 
-        {
+        if (message.channel == "all" && message.message.id != store.get('team_id')) {
             onlineUsers[message.message.id] = {};
             onlineUsers[message.message.id]['available'] = message.message.available;
             onlineUsers[message.message.id]['name'] = message.message.name;
@@ -40,8 +51,22 @@ pubnub.addListener({
                 }
             }
             $("#user_list").html(userDom);
-            publishAvailableMessage();
-        }   
+            publishSingleAvailableMessage(message.message.id);
+        }
+        if (message.channel == store.get('team_id')) {
+            onlineUsers[message.message.id] = {};
+            onlineUsers[message.message.id]['available'] = message.message.available;
+            onlineUsers[message.message.id]['name'] = message.message.name;
+
+            //update UI
+            var userDom = "";
+            for (var k in onlineUsers) {
+                if (onlineUsers[k]['available'] == "yes") {
+                    userDom += '<div> '+onlineUsers[k]["name"]+' <button onClick=\'connectToUser(\"'+k+'\")\' >Play</button></div>';
+                }
+            }
+            $("#user_list").html(userDom);
+        }
         console.log(onlineUsers);
     },
     presence: function(p) {
