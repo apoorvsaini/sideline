@@ -13,7 +13,7 @@ const store = new Store({
     defaults: {
         windowBounds: { width: 800, height: 600 },
         loggedin: false,
-        name: "Apoorv",
+        name: "",
         team_name: "",
         team_id: null,
         condition: 100,
@@ -23,6 +23,15 @@ const store = new Store({
     }
 });
 
+// Check if logging in for the first time
+var id = store.get('team_id');
+if (id == null || id.length == 0) {
+    id = Math.floor(Math.random() * 1000)+"-"+Math.floor(Math.random() * 2000)+"-"+Math.floor(Math.random() * 100)+"-"+Math.floor(Math.random() * 1000)+"-"+Math.floor(Math.random() * 2000);
+    store.set('team_id',id);
+    console.log(store);
+}
+
+
 var inGame = false;
 
 var matchDetails = {homeScore: 0, awayScore: 0, time: 0, awayTeam:"Chelsea FC", homeTeam:"Barcelona FC"};
@@ -30,6 +39,16 @@ var playerWithBall = "away_1"; //hold the id
 var versus = ""; //user_id of opponent
 var versus_color = "" //color of opponent
 
+function saveName() {
+    var teamName = $("#name_input").val();
+    if (teamName.length > 0) {
+        store.set('name',teamName);
+        $("#profile_area").hide();
+        $("#profile_saved_area").hide();
+        var userScore = '<div id="profile_saved_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div><button id="startMatch" style="display:none" onCLick="startMatch()">start</button>'
+        $("#sidebar").append("<div id='profile_saved_area'>Welcome "+teamName+"!</div>"+userScore);
+    }
+}
 
 function shoot() {
     var elem = document.getElementById("ball");

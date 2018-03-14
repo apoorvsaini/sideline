@@ -18,11 +18,11 @@ const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
 const Store = require('./store.js');
 const store = new Store({
-  configName: 'user-data2',
+  configName: 'user-data',
   defaults: {
     windowBounds: { width: 800, height: 600 },
     loggedin: false,
-    name: "Apoorv",
+    name: "",
     team_name: "",
     team_id: null,
     condition: 100,
@@ -61,9 +61,6 @@ document.querySelector("#field_area").innerHTML = field();
 
 //------Click Listeners & state maintainers-------
 store.set('loggedin',false);
-document.querySelector("#login_btn").addEventListener("click", function(){
-  
-});
 
 
 console.log(loggedin);

@@ -112,7 +112,7 @@ function comment() {
             return action;
         case 8:
             //throw-in 
-            action = holderName+"\'s takes a throw-in";
+            action = holderName+" takes a throw-in";
             return action;
         default: return holderName+" "+fillers[Math.floor(Math.random() * 4)];
             

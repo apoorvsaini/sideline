@@ -4,7 +4,7 @@ const store = new Store({
   defaults: {
     windowBounds: { width: 800, height: 600 },
     loggedin: false,
-    name: "Apoorv",
+    name: "",
     team_name: "",
     team_id: null,
     condition: 100,
@@ -29,9 +29,9 @@ var opp_name = currMatch.get('opp_name');
 var venue = currMatch.get('self_venue');
 console.log(store);
 
-var loginDom = '<div id="profile_area"><input id="name_input" placeholder="Your Name"/><button id="login_btn" >Save Profile</button></div>';
+var loginDom = '<div id="profile_area"><input id="name_input" placeholder="Your Team\'s Name"/><button id="login_btn" onClick="saveName()">Save Profile</button></div>';
 
-var userScore = '<div id="profile_saved_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div><button id="startMatch" onCLick="startMatch()">start</button>';
+var userScore = '<div id="profile_saved_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div><button id="startMatch" style="display:none" onCLick="startMatch()">start</button>';
 
 if (name != '') loginDom = '<div id="profile_saved_area"> Welcome '+name+'!</div>';
 
