@@ -46,7 +46,7 @@ export const sidebar = () => {
 };
 
 export const playground = () => {
-  return scoreCardDom+"<button id='exit_btn' style='display:none;' onClick='resetConnection()'>EXIT MATCH</button>";
+  return scoreCardDom;
 };
 
 export const field = () => {

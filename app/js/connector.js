@@ -249,4 +249,7 @@ function endMatchConnection() {
     requestCame = false;
     requestSent = false;
     match_channel = "";
+    willHost = false;
+    inGame = false;
+    available = "yes";
 }
