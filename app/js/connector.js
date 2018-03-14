@@ -12,6 +12,7 @@ var versusName = "";
 var requestCame = false;
 var requestSent = false;
 var match_channel = "";
+var willHost = false;
 if (inGame == true) {available = "no";}
 
 function publishAvailableMessage() {
@@ -160,14 +161,9 @@ function connectToUser(id,name) {
         //create a channel to join for match
         versus = id;
         requestSent = true;
-
-        //send a message to id to join as visitor
-        //start the match
-        arrangeMatch(id,match_channel);
-        startMatchSetup(match_channel,name);
-         /*
+        
         if (requestCame == false && requestFrom != id) {
-            match_channel = store.get('team_id')+"_"+id;
+            match_channel = id;
             arrangeMatch(id,match_channel);
         }
         else if (requestCame == true && requestFrom == id) {
@@ -175,7 +171,7 @@ function connectToUser(id,name) {
             arrangeMatch(id,match_channel);
             startMatchSetup(match_channel,name);
         }
-        */
+        
     }
 }
 
@@ -183,18 +179,25 @@ function startMatchSetup(mc,name) {
     //send a msg to tell you are unavailable to others
     publishAvailableMessage();
 
+    /*
     pubnub.subscribe({
         channels: [mc] 
     });
+    */
 
     pubnub.unsubscribe({
         channels: ['all'] 
     });
 
     //check who us the host?
-    if(mc.split("_")[0] == store.get('team_id')) {
+    if(mc.split("-")[0] > store.get('team_id').split("-")[0]) {
         //we are home
         currMatch.set('self_venue',"home");
+    }
+    else if (mc.split("-")[0] == store.get('team_id').split("-")[0]) {
+        if (mc.split("-")[0]+mc.split("-")[1] > store.get('team_id').split("-")[0]+store.get('team_id').split("-")[1] ) {
+            currMatch.set('self_venue',"home");
+        }
     }
     else {
         //we are away
