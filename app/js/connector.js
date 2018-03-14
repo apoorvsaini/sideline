@@ -78,6 +78,8 @@ pubnub.addListener({
                 startMatchSetup(message.message.channel);
             }
             else if (message.message.arrange == true && versus == "") {
+                requestCame = true;
+                requestFrom = message.message.id;
                 match_channel = message.message.channel;
             }
             else {
