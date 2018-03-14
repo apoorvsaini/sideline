@@ -60,7 +60,7 @@ document.querySelector("#playground").innerHTML = playground();
 document.querySelector("#field_area").innerHTML = field();
 
 //add chat to sidebar
-var chatDom = "<div id='chat_area'></div><input id='chat_input' placeholder='Send message...'/>";
+var chatDom = "<div id='chat_area'></div><input id='chat_input' style='font-size:20px;' placeholder='Send message...'/>";
 $("#sidebar").append(chatDom);
 
 //------Click Listeners & state maintainers-------

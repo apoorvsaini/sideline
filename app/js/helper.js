@@ -220,6 +220,9 @@ function resetConnection() {
     $("#exit_btn").hide();
     timePassed = 0;
     $("#commentary_box").html("");
+    var top = $("#ball").position().top;
+    var left = $("#ball").position().left;
+    $("#ball").animate({ top: top, left: left-700},1);
     pubnub.subscribe({
         channels: ['all',store.get('team_id')] 
     });

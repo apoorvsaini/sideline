@@ -83,6 +83,7 @@ a {
 
 #find_users {
   position: fixed;
+  z-index: 300;
   height: 100%;
   width: 75%;
   left: 300px;
@@ -144,6 +145,10 @@ a {
   padding-bottom: 5px;
   border-radius: 10px;
   margin-right: 20px; 
+}
+
+#confetti {
+  z-index: 200;
 }
 
 #chat_input {

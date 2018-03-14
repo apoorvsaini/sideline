@@ -70,6 +70,14 @@ function sendScoreUpdate(team) {
 
 
 function sendChat(msg) {
+    var confettiSettings = { target: 'confetti', max:10 };
+        var confetti = new ConfettiGenerator(confettiSettings);
+        confetti.render();
+
+        setTimeout(stopConfetti, 5000);
+        function stopConfetti() {
+            confetti.clear();
+        }
     var publishConfig = {
         channel : "chat",
         message : {"available":available,"sender":store.get('team_id'),"name":store.get('name'),"chat":msg,"msg":""}
@@ -105,7 +113,7 @@ pubnub.addListener({
             publishSingleAvailableMessage(message.message.id);
         }
 
-        if (match_channel != "" && "msg" in message.message) {
+        if (match_channel != "" && "msg" in message.message && message.channel != "chat") {
             //score updates
             if (currMatch.get('self_venue') == 'away') {
                 if (message.message.goal != "") {
