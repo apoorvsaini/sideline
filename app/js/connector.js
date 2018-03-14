@@ -37,7 +37,7 @@ function publishSingleAvailableMessage(id) {
 
 function arrangeMatch(id,channel) {
     var publishConfig = {
-        channel : id,
+        channel : channel,
         message : {"arrange":true,"available":available,"id":store.get('team_id'),"name":store.get('name'),"channel":channel}
     }
     pubnub.publish(publishConfig, function(status, response) {
@@ -113,7 +113,7 @@ pubnub.addListener({
                 requestCame = true;
                 requestFrom = message.message.id;
                 console.log("GOT MESSAGE BACK");
-                startMatchSetup(message.message.channel,message.message.name);
+                startMatchSetup(message.message.id,message.message.name);
             }
             else if (message.message.arrange == true && versus == "") {
                 requestCame = true;
@@ -202,7 +202,7 @@ function startMatchSetup(mc,name) {
 
     //change the UI
     $("#find_users").hide();
-
+    
     startMatch();
     available = "no"; //turn it back to yes after match ends
 }
@@ -210,9 +210,6 @@ function startMatchSetup(mc,name) {
 
 function endMatchConnection() {
     //clear the defaults
-    pubnub.unsubscribe({
-        channels: [match_channel]
-    });
     requestCame = false;
     available = "yes";
     versus = "";
