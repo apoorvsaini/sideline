@@ -54,8 +54,13 @@ function startMatch() {
     if (inGame == false) {
         inGame = true;
         matchTimer = setInterval(updateMatch, 2000);
-        totalWidth = document.getElementById('field').offsetWidth;
-        ballIncrement = totalWidth/90;
+
+        //animate ball
+        var top = $("#ball").position().top;
+        var left = $("#ball").position().left;
+        console.log(left);
+        ballIncrement = 700/90;
+        $("#ball").animate({ top: top, left: 680},180000);
     }
 }
 
@@ -67,13 +72,10 @@ function updateMatch() {
 
     $("#time_area").html(timePassed+"\'");
     
-    //animate ball
-    var top = $("#ball").position().top;
-    var left = $("#ball").position().left;
-    $("#ball").animate({ top: top, left: left+ballIncrement},2000);
-
     //generate commentary
-    comment(); 
+    var com = comment(); 
+    // add to commentary
+    $("#commentary_box").append("<div>"+com+"</div>");
 }
 
 function stopMatch(){

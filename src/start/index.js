@@ -52,7 +52,7 @@ export const playground = () => {
 };
 
 export const field = () => {
-  return '<div id="field"><div id="ball"></div></span></div><div id="time_area">0\'</div><div id="commentry_area">LIVE COMMENTARY</div>';
+  return '<div id="field"><div id="ball"></div></div><div id="time_area">0\'</div><div id="commentry_area">LIVE COMMENTARY<div id="commentary_box"></div></div>';
 };
 
 export const bye = () => {
