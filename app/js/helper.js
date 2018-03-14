@@ -76,6 +76,8 @@ function updateMatch() {
     var com = comment(); 
     // add to commentary
     $("#commentary_box").append("<div>"+com+"</div>");
+    var objDiv = document.getElementById("commentary_box");
+    objDiv.scrollTop = objDiv.scrollHeight;
 }
 
 function stopMatch(){
