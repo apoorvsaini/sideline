@@ -83,11 +83,47 @@ function updateMatch() {
 function stopMatch(){
     clearInterval(matchTimer);
     inGame = false;
+    var w = store.get('wins');
+    var l = store.get('losses');
+    var d = store.get('draws');
+    //save stats
+    if (currMatch.get('opp_score') < currMatch.get('self_score')) {
+        store.set('wins', w+1);
+    }
+    else if (currMatch.get('opp_score') > currMatch.get('self_score')) {
+        store.set('losses', l+1);
+    }
+    else if (currMatch.get('opp_score') == currMatch.get('self_score')) {
+        store.set('draws', d+1);
+    }
+
+    //reset match
+    currMatch.set('opp_name',"Opponent");
+    currMatch.set('self_venue',"home");
+    currMatch.set('opp_score',0);
+    currMatch.set('self_score',0);
 }
 
-function updateScore() {
-    console.log("yo");
+function updateScore(team) {
+    var selfScore = currMatch.get('self_score');
+    var oppScore = currMatch.get('opp_score');
+    var ven = currMatch.get('self_venue');
+
     var scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+' FC</span> '+1+' : '+2+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span></div>';
+    if (team == 'self') {
+        currMatch.set('self_score',selfScore+1);
+        if (ven == 'home') 
+            scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+' FC</span> '+(selfScore+1)+' : '+oppScore+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span></div>';
+        else 
+            scoreCardDom = '<span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span> '+oppScore+' : '+(selfScore+1)+' <span class="team_name left_right_margin">'+store.get('name')+' FC</span></div>';
+    }
+    else {
+        currMatch.set('opp_score',oppScore+1);
+        if (ven == 'home') 
+            scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+' FC</span> '+selfScore+' : '+(oppScore+1)+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span></div>';
+        else 
+            scoreCardDom = '<span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span> '+(oppScore+1)+' : '+selfScore+' <span class="team_name left_right_margin">'+store.get('name')+' FC</span></div>';
+    }
     document.querySelector("#score_card").innerHTML = "";
     document.querySelector("#score_card").innerHTML = scoreCardDom;
 }
