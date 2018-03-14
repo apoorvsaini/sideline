@@ -76,7 +76,7 @@ $( "#chat_input" ).keypress(function( event ) {
 
 
 console.log(loggedin);
-if (loggedin == false) {
+if (name == '') {
   $("#login_btn").show();
 }
 else {

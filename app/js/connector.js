@@ -74,14 +74,16 @@ function sendScoreUpdate(team) {
 
 
 function sendChat(msg) {
-    var publishConfig = {
-        channel : "chat",
-        message : {"available":available,"sender":store.get('team_id'),"name":store.get('name'),"chat":msg,"msg":""}
+    if(store.get('name') != '') {
+        var publishConfig = {
+            channel : "chat",
+            message : {"available":available,"sender":store.get('team_id'),"name":store.get('name'),"chat":msg,"msg":""}
+        }
+        
+        pubnub.publish(publishConfig, function(status, response) {
+            console.log(status, response);
+        })
     }
-    
-    pubnub.publish(publishConfig, function(status, response) {
-        console.log(status, response);
-    })
 }
 
 
@@ -176,12 +178,18 @@ pubnub.addListener({
         console.log(uuid);
     }
 })  
-console.log("Subscribing..");
-pubnub.subscribe({
-    channels: ['all','chat',store.get('team_id')] 
-});
 
+if(store.get('name') != "") {
+    pubnub.subscribe({
+        channels: ['all','chat',store.get('team_id')] 
+    });
+}
 
+function trySubscribe() {
+    pubnub.subscribe({
+        channels: ['all','chat',store.get('team_id')] 
+    });
+}
 
 function connectToUser(id,name) {
     $("#user_list").hide();

@@ -47,12 +47,14 @@ var versus_color = "" //color of opponent
 
 function saveName() {
     var teamName = $("#name_input").val();
-    if (teamName.length > 0) {
+    if ((teamName.trim()).length > 0) {
         store.set('name',teamName);
         $("#profile_area").hide();
         $("#profile_saved_area").hide();
+        $("#profile_score_area").hide();
         var userScore = '<div id="profile_score_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div><button id="startMatch" style="display:none" onCLick="startMatch()">start</button>'
         $("#sidebar").append("<div id='profile_saved_area'>Welcome "+teamName+"!</div>"+userScore);
+        trySubscribe();
     }
 }
 
