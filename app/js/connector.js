@@ -8,6 +8,7 @@ pubnub = new PubNub({
 var available = "yes";
 var versus = "";
 var requestFrom = "";
+var versusName = "";
 var requestCame = false;
 var requestSent = false;
 var match_channel = "";
@@ -62,7 +63,7 @@ pubnub.addListener({
             var userDom = "";
             for (var k in onlineUsers) {
                 if (onlineUsers[k]['available'] == "yes") {
-                    userDom += '<div> '+onlineUsers[k]["name"]+' <button onClick=\'connectToUser(\"'+k+'\")\' >Play</button></div>';
+                    userDom += '<div> '+onlineUsers[k]["name"]+' <button onClick=\'connectToUser(\"'+k+',\"'+onlineUsers[k]["name"]+' \")\' >Play</button></div>';
                 }
             }
             $("#user_list").html(userDom);
@@ -76,7 +77,7 @@ pubnub.addListener({
                 requestCame = true;
                 requestFrom = message.message.id;
                 console.log("GOT MESSAGE BACK");
-                startMatchSetup(message.message.channel);
+                startMatchSetup(message.message.channel,message.message.name);
             }
             else if (message.message.arrange == true && versus == "") {
                 requestCame = true;
@@ -92,7 +93,7 @@ pubnub.addListener({
                 var userDom = "";
                 for (var k in onlineUsers) {
                     if (onlineUsers[k]['available'] == "yes") {
-                        userDom += '<div> '+onlineUsers[k]["name"]+' <button onClick=\'connectToUser(\"'+k+'\")\' >Play</button></div>';
+                        userDom += '<div> '+onlineUsers[k]["name"]+' <button onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >Play</button></div>';
                     }
                 }
                 $("#user_list").html(userDom);
@@ -111,7 +112,7 @@ pubnub.subscribe({
     channels: ['all',store.get('team_id')] 
 });
 
-function connectToUser(id) {
+function connectToUser(id,name) {
     if(requestSent == false) {
         //create a channel to join for match
         versus = id;
@@ -125,25 +126,41 @@ function connectToUser(id) {
         else if (requestCame == true && requestFrom == id) {
             //start the match
             arrangeMatch(id,match_channel);
-            startMatchSetup(match_channel);
+            startMatchSetup(match_channel,name);
         }
     }
 }
 
-function startMatchSetup(mc) {
-    //start the match
-    requestCame = false;
-    available = "no";
-    versus = "";
-    requestFrom = "";
-    requestCame = false;
-    requestSent = false;
-    match_channel = "";
-
+function startMatchSetup(mc,name) {
     //send a msg to tell you are unavailable to others
-    alert(mc);
+    publishAvailableMessage();
 
     pubnub.unsubscribe({
         channels: ['all'] 
     });
+
+    //check who us the host?
+    if(mc.split("_")[0] == store.get('team_id')) {
+        //we are home
+        currMatch.set('self_venue',"home");
+    }
+    else {
+        //we are away
+        currMatch.set('self_venue',"away");
+    }
+    currMatch.set('opp_name',name);
+
+    //change the UI
+    $("#find_users").hide();
+
+    //clear the defaults
+    requestCame = false;
+    available = "no"; //turn it back to yes after match ends
+    versus = "";
+    requestFrom = "";
+    versusName = "";
+    requestCame = false;
+    requestSent = false;
+    match_channel = "";
+
 }
