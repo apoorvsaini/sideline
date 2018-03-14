@@ -85,7 +85,7 @@ pubnub.addListener({
             var userDom = "";
             for (var k in onlineUsers) {
                 if (onlineUsers[k]['available'] == "yes") {
-                    userDom += '<div> '+onlineUsers[k]["name"]+' <button onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >Play</button></div>';
+                    userDom += '<div> '+onlineUsers[k]["name"]+' <button id="'+k+'" onClick=\'requestToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >REQUEST</button></div>';
                 }
             }
             $("#user_list").html(userDom);
@@ -128,7 +128,7 @@ pubnub.addListener({
                 var userDom = "";
                 for (var k in onlineUsers) {
                     if (onlineUsers[k]['available'] == "yes") {
-                        userDom += '<div> '+onlineUsers[k]["name"]+' <button onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >Play</button></div>';
+                        userDom += '<div> '+onlineUsers[k]["name"]+' <button id="'+k+'"  onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >Play</button></div>';
                     }
                 }
                 $("#user_list").html(userDom);
@@ -147,7 +147,13 @@ pubnub.subscribe({
     channels: ['all',store.get('team_id')] 
 });
 
+function requestToUser(id) {
+    $("#"+id).hide();
+}
+
+
 function connectToUser(id,name) {
+    $("#"+id).hide();
     if(requestSent == false) {
         //create a channel to join for match
         versus = id;
