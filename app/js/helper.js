@@ -163,6 +163,7 @@ function stopMatch(){
     currMatch.set('self_venue',"home");
     currMatch.set('opp_score',0);
     currMatch.set('self_score',0);
+    endMatchConnection();
 }
 
 function updateScore(team) {

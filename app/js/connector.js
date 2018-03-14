@@ -47,8 +47,22 @@ function arrangeMatch(id,channel) {
 function sendMatchUpdate(comment,time) {
     var publishConfig = {
         channel : match_channel,
-        message : {"available":available,"id":store.get('team_id'),"name":store.get('name'),"channel":channel,"msg":comment,"time":time}
+        message : {"available":available,"id":store.get('team_id'),"name":store.get('name'),"channel":match_channel,"msg":comment,"time":time,"goal":""}
     }
+    
+    pubnub.publish(publishConfig, function(status, response) {
+        console.log(status, response);
+    })
+}
+
+function sendScroeUpdate(team) {
+    if (team == 'self') team = 'opponent';
+    else team = 'self';
+    var publishConfig = {
+        channel : match_channel,
+        message : {"available":available,"id":store.get('team_id'),"name":store.get('name'),"channel":match_channel,"msg":comment,"time":time,"goal":team}
+    }
+    
     pubnub.publish(publishConfig, function(status, response) {
         console.log(status, response);
     })
@@ -80,10 +94,14 @@ pubnub.addListener({
             publishSingleAvailableMessage(message.message.id);
         }
 
-        if (match_channel != "" && message.message.channel == match_channel && message.message == match_channel) {
+        if (match_channel != "" && message.channel == match_channel && "msg" in message.message) {
             //score updates
+            console.log(message);
             if (currMatch.get('self_venue') == 'away') {
-                updateMatchFromHost(message.message.comment,message.message.time);
+                updateMatchFromHost(message.message.msg,message.message.time);
+            }
+            if (message.message.goal != "") {
+                updateScore(message.message.goal);
             }
         }
 
@@ -152,6 +170,10 @@ function startMatchSetup(mc,name) {
     //send a msg to tell you are unavailable to others
     publishAvailableMessage();
 
+    pubnub.subscribe({
+        channels: [mc] 
+    });
+
     pubnub.unsubscribe({
         channels: ['all'] 
     });
@@ -177,6 +199,9 @@ function startMatchSetup(mc,name) {
 
 function endMatchConnection() {
     //clear the defaults
+    pubnub.unsubscribe({
+        channels: [match_channel]
+    });
     requestCame = false;
     available = "yes";
     versus = "";
