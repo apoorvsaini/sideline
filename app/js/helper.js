@@ -44,13 +44,14 @@ var playerWithBall = "away_1"; //hold the id
 var versus = ""; //user_id of opponent
 var versus_color = "" //color of opponent
 
+
 function saveName() {
     var teamName = $("#name_input").val();
     if (teamName.length > 0) {
         store.set('name',teamName);
         $("#profile_area").hide();
         $("#profile_saved_area").hide();
-        var userScore = '<div id="profile_saved_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div><button id="startMatch" style="display:none" onCLick="startMatch()">start</button>'
+        var userScore = '<div id="profile_score_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div><button id="startMatch" style="display:none" onCLick="startMatch()">start</button>'
         $("#sidebar").append("<div id='profile_saved_area'>Welcome "+teamName+"!</div>"+userScore);
     }
 }
@@ -74,6 +75,7 @@ var timePassed = 0;
 var totalWidth = 0;
 var ballIncrement = 0;
 function startMatch() {
+   
     var scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+'</span> '+0+' : '+0+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span></div>';
 
     if (currMatch.get('self_venue') == "away") {
@@ -165,12 +167,18 @@ function stopMatch(){
         store.set('draws', d+1);
     }
 
+    //update score card
+    var scoreUpdater = 'W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws');
+    $("#profile_score_area").html(scoreUpdater);
+
     //reset match
     currMatch.set('opp_name',"Opponent");
     currMatch.set('self_venue',"home");
     currMatch.set('opp_score',0);
     currMatch.set('self_score',0);
     endMatchConnection();
+    inGame = false;
+    $("#exit_btn").show();
 }
 
 function updateScore(team) {
@@ -204,4 +212,15 @@ function updateScore(team) {
     }
     document.querySelector("#score_card").innerHTML = "";
     document.querySelector("#score_card").innerHTML = scoreCardDom;
+}
+
+
+function resetConnection() {
+    $("#find_users").show();
+    $("#exit_btn").hide();
+    timePassed = 0;
+    $("#commentary_box").html("");
+    pubnub.subscribe({
+        channels: ['all',store.get('team_id')] 
+    });
 }

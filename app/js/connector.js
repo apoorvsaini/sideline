@@ -69,6 +69,18 @@ function sendScoreUpdate(team) {
 }
 
 
+function sendChat(msg) {
+    var publishConfig = {
+        channel : "chat",
+        message : {"available":available,"sender":store.get('team_id'),"name":store.get('name'),"chat":msg,"msg":""}
+    }
+    
+    pubnub.publish(publishConfig, function(status, response) {
+        console.log(status, response);
+    })
+}
+
+
     
 pubnub.addListener({
     status: function(statusEvent) {
@@ -86,7 +98,7 @@ pubnub.addListener({
             var userDom = "";
             for (var k in onlineUsers) {
                 if (onlineUsers[k]['available'] == "yes") {
-                    userDom += '<div> '+onlineUsers[k]["name"]+' <button id="'+k+'" onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >REQUEST</button></div>';
+                    userDom += '<div> '+onlineUsers[k]["name"]+' <button id="'+k+'" onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >PLAY</button></div>';
                 }
             }
             $("#user_list").html(userDom);
@@ -104,6 +116,17 @@ pubnub.addListener({
                     updateMatchFromHost(message.message.msg,message.message.time);
                 }
             }
+        }
+
+        if (message.channel == "chat") {
+            //chat
+            var chatMsg = message.message.chat;
+            var sender = message.message.sender;
+            var senderName = message.message.name;
+            //append to chat area
+            $("#chat_area").append("<div><span class='sender_tag'>"+senderName+"</span>"+chatMsg+"</div><br>");
+            var objDiv = document.getElementById("chat_area");
+            objDiv.scrollTop = objDiv.scrollHeight;
         }
 
         if (message.channel == store.get('team_id')) {
@@ -145,7 +168,7 @@ pubnub.addListener({
 })  
 console.log("Subscribing..");
 pubnub.subscribe({
-    channels: ['all',store.get('team_id')] 
+    channels: ['all','chat',store.get('team_id')] 
 });
 
 

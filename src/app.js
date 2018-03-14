@@ -59,9 +59,20 @@ document.querySelector("#app").innerHTML = sidebar();
 document.querySelector("#playground").innerHTML = playground();
 document.querySelector("#field_area").innerHTML = field();
 
+//add chat to sidebar
+var chatDom = "<div id='chat_area'></div><input id='chat_input' placeholder='Send message...'/>";
+$("#sidebar").append(chatDom);
 
 //------Click Listeners & state maintainers-------
-store.set('loggedin',false);
+$( "#chat_input" ).keypress(function( event ) {
+  if ( event.which == 13 ) {
+     event.preventDefault();
+     var chatMsg = $("#chat_input").val();
+     $("#chat_input").val("");
+     if((chatMsg.trim()).length > 0)
+      sendChat(chatMsg);
+  }
+});
 
 
 console.log(loggedin);

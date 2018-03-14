@@ -38,9 +38,9 @@ function comment() {
     }
     else if (timePassed == 45) {
         opponentEnergy += 30;
-        opponentMorale += 20;
+        opponentMorale += 30;
         selfEnergy += 30;
-        selfMorale += 20;
+        selfMorale += 30;
         return basicStrings[1];
     }
     else if (timePassed >= 90) {
@@ -64,7 +64,7 @@ function comment() {
             else action = timePassed+"\' :"+holderName+"\'s #"+playerNumber+" goes for a goal and";
             
             if (ballHolder == 'self') {
-                if (selfMorale+selfEnergy >= opponentEnergy+opponentMorale && selfEnergy >= 50) {
+                if (selfMorale+selfEnergy >= opponentEnergy+opponentMorale && selfEnergy >= 30) {
                     //Goal
                     selfMorale += 1; 
                     selfEnergy += 1;
@@ -78,12 +78,12 @@ function comment() {
                 else return action += " "+goalMiss[Math.floor(Math.random() * 5)];
             }
             else {
-                if (selfMorale+selfEnergy <= opponentEnergy+opponentMorale && opponentEnergy >= 50) {
+                if (selfMorale+selfEnergy <= opponentEnergy+opponentMorale && opponentEnergy >= 30) {
                     //Goal
                     selfMorale -= 1; 
                     selfEnergy -= 1;
-                    opponentMorale += 1; 
-                    opponentEnergy += 1;
+                    opponentMorale += 2; 
+                    opponentEnergy += 2;
                     updateScore('opponent');
                     sendScoreUpdate('self');
                     return action += " "+goalEmotions[Math.floor(Math.random() * 6)]+" "+goalDescriptions[Math.floor(Math.random() * 4)];
@@ -92,20 +92,68 @@ function comment() {
             }
         case 2:
             //goal miss
+            if (ballHolder == 'self') {
+                selfMorale += 3; 
+                selfEnergy += 3;
+                opponentMorale -= 2; 
+                opponentEnergy -= 2;
+            }
+            else {
+                selfMorale -= 3; 
+                selfEnergy -= 3;
+                opponentMorale += 2; 
+                opponentEnergy += 2;
+            }
             action = holderName+"\'s #"+playerNumber+" tries";
             return action += " "+goalMiss[Math.floor(Math.random() * 5)];
         case 3:
             //yellow 
+            if (ballHolder == 'self') {
+                selfMorale -= 3; 
+                selfEnergy -= 3;
+                opponentMorale += 2; 
+                opponentEnergy += 2;
+            }
+            else {
+                selfMorale += 3; 
+                selfEnergy += 3;
+                opponentMorale -= 2; 
+                opponentEnergy -= 2;
+            }
             action = foulPlay[Math.floor(Math.random() * 4)]+" "+holderName+"\'s #"+playerNumber+". Its a YELLOW CARD";
             if (ballHolder == 'self') { selfMorale -= 1 }
             else { opponentMorale -= 1 }
             return action;
         case 4:
             //pass 
+            if (ballHolder == 'self') {
+                selfMorale += 3; 
+                selfEnergy += 3;
+                opponentMorale -= 2; 
+                opponentEnergy -= 2;
+            }
+            else {
+                selfMorale -= 3; 
+                selfEnergy -= 3;
+                opponentMorale += 2; 
+                opponentEnergy += 2;
+            }
             action = "Nice pass by "+holderName+"\'s #"+playerNumber;
             return action;
         case 5:
             //cross 
+            if (ballHolder == 'self') {
+                selfMorale += 3; 
+                selfEnergy += 3;
+                opponentMorale -= 2; 
+                opponentEnergy -= 2;
+            }
+            else {
+                selfMorale -= 3; 
+                selfEnergy -= 3;
+                opponentMorale += 2; 
+                opponentEnergy += 2;
+            }
             action = "Nice cross by "+holderName+"\'s #"+playerNumber;
             return action;
         case 6:

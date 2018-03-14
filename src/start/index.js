@@ -31,7 +31,7 @@ console.log(store);
 
 var loginDom = '<div id="profile_area"><input id="name_input" placeholder="Your Team\'s Name"/><button id="login_btn" onClick="saveName()">Save Profile</button></div>';
 
-var userScore = '<div id="profile_saved_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div><button id="startMatch" style="display:none" onCLick="startMatch()">start</button>';
+var userScore = '<div id="profile_score_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div>';
 
 if (name != '') loginDom = '<div id="profile_saved_area"> Welcome '+name+'!</div>';
 
@@ -41,14 +41,12 @@ if(venue == 'away') {
   scoreCardDom = '<span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span> '+0+' : '+0+' <span class="team_name left_right_margin">'+store.get('name')+'</span></div>';
 }
 
-
-
 export const sidebar = () => {
   return '<div id="sidebar"><div id="header"><img src="../src/assets/img/sideline.png" height="70"/></div><div id="logo">SIDELINE \'18</div>'+loginDom+userScore+'</div><div id="playground"></div>';
 };
 
 export const playground = () => {
-  return scoreCardDom;
+  return scoreCardDom+"<button id='exit_btn' style='display:none;' onClick='resetConnection()'>EXIT MATCH</button>";
 };
 
 export const field = () => {
