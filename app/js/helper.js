@@ -82,6 +82,8 @@ function startMatch() {
         document.querySelector("#score_card").innerHTML = scoreCardDom;
         if (inGame == false) {
             inGame = true;
+            matchTimer = setInterval(awayTimeUpdate, 2000);
+
             //animate ball
             var top = $("#ball").position().top;
             var left = $("#ball").position().left;
@@ -110,12 +112,17 @@ function startMatch() {
     }
 }
 
-function updateMatchFromHost(msg,time) {
-    timePassed = time;
+function awayTimeUpdate() {
+    timePassed += 1;
     if(timePassed >= 90) {
+        updateMatchFromHost("MATCH ENDED",90);
         stopMatch();
     }
     $("#time_area").html(timePassed+"\'");
+}
+
+function updateMatchFromHost(msg,time) {
+    //timePassed = time;
     var item = $("<div id='"+timePassed+"'>"+msg+"</div>").hide().fadeIn(1000);
     $("#commentary_box").append(item);
     var objDiv = document.getElementById("commentary_box");
