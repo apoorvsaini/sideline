@@ -31,11 +31,11 @@ console.log(store);
 
 var loginDom = '<div id="profile_area"><input id="name_input" placeholder="Your Team\'s Name"/><button id="login_btn" onClick="saveName()">Save Profile</button></div>';
 
-var userScore = '<div id="profile_saved_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div><button id="startMatch" style="display:none" onCLick="startMatch()">start</button>';
+var userScore = '<div id="profile_saved_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div><button id="startMatch"  onCLick="startMatch()">start</button>';
 
 if (name != '') loginDom = '<div id="profile_saved_area"> Welcome '+name+'!</div>';
 
-var scoreCardDom = '<div id="score_card"> <span class="team_name left_right_margin">'+name+' FC</span> '+currMatch.get('self_score')+' : '+currMatch.get('opp_score')+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span></div> <div id="field_area"></div>';
+var scoreCardDom = '<div id="score_card"> <span class="team_name left_right_margin">'+name+'</span> '+currMatch.get('self_score')+' : '+currMatch.get('opp_score')+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span></div> <div id="field_area"></div>';
 
 if(venue == 'away') {
   scoreCardDom = '<div id="score_card"> <span class="team_name left_right_margin">'+matchDetails.awayTeam+'</span> '+matchDetails.homeScore+' : '+matchDetails.awayScore+' <span class="team_name left_right_margin">'+matchDetails.homeTeam+'</span></div> <div id="field_area"></div>';
@@ -52,7 +52,7 @@ export const playground = () => {
 };
 
 export const field = () => {
-  return '<div id="field"><div id="ball"></div></div><div id="time_area">0\'</div><div id="commentry_area">LIVE COMMENTARY<div id="commentary_box"></div></div>';
+  return '<div id="field"><div id="ball"></div></div><div id="time_area">0\'</div><div id="commentry_area"><div id="commentary_box"></div></div>';
 };
 
 export const bye = () => {

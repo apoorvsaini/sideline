@@ -37,6 +37,10 @@ function comment() {
         return basicStrings[0];
     }
     else if (timePassed == 45) {
+        opponentEnergy += 30;
+        opponentMorale += 20;
+        selfEnergy += 30;
+        selfMorale += 20;
         return basicStrings[1];
     }
     else if (timePassed >= 90) {

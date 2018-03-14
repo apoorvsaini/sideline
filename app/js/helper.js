@@ -28,13 +28,19 @@ var id = store.get('team_id');
 if (id == null || id.length == 0) {
     id = Math.floor(Math.random() * 1000)+"-"+Math.floor(Math.random() * 2000)+"-"+Math.floor(Math.random() * 100)+"-"+Math.floor(Math.random() * 1000)+"-"+Math.floor(Math.random() * 2000);
     store.set('team_id',id);
+    store.set('loggedin',true);
     console.log(store);
 }
+
+//reset match
+currMatch.set('opp_name',"Opponent");
+currMatch.set('self_venue',"home");
+currMatch.set('opp_score',0);
+currMatch.set('self_score',0);
 
 
 var inGame = false;
 
-var matchDetails = {homeScore: 0, awayScore: 0, time: 0, awayTeam:"Chelsea FC", homeTeam:"Barcelona FC"};
 var playerWithBall = "away_1"; //hold the id
 var versus = ""; //user_id of opponent
 var versus_color = "" //color of opponent
@@ -130,55 +136,30 @@ function updateScore(team) {
     var oppScore = currMatch.get('opp_score');
     var ven = currMatch.get('self_venue');
 
-    var scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+' FC</span> '+1+' : '+2+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span></div>';
+    var scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+'</span> '+1+' : '+2+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span></div>';
     if (team == 'self') {
+        var confettiSettings = { target: 'confetti', max:10 };
+        var confetti = new ConfettiGenerator(confettiSettings);
+        confetti.render();
+
+        setTimeout(stopConfetti, 5000);
+        function stopConfetti() {
+            confetti.clear();
+        }
+
         currMatch.set('self_score',selfScore+1);
         if (ven == 'home') 
-            scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+' FC</span> '+(selfScore+1)+' : '+oppScore+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span></div>';
+            scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+'</span> '+(selfScore+1)+' : '+oppScore+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span></div>';
         else 
-            scoreCardDom = '<span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span> '+oppScore+' : '+(selfScore+1)+' <span class="team_name left_right_margin">'+store.get('name')+' FC</span></div>';
+            scoreCardDom = '<span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span> '+oppScore+' : '+(selfScore+1)+' <span class="team_name left_right_margin">'+store.get('name')+'</span></div>';
     }
     else {
         currMatch.set('opp_score',oppScore+1);
         if (ven == 'home') 
-            scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+' FC</span> '+selfScore+' : '+(oppScore+1)+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span></div>';
+            scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+'</span> '+selfScore+' : '+(oppScore+1)+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span></div>';
         else 
-            scoreCardDom = '<span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span> '+(oppScore+1)+' : '+selfScore+' <span class="team_name left_right_margin">'+store.get('name')+' FC</span></div>';
+            scoreCardDom = '<span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span> '+(oppScore+1)+' : '+selfScore+' <span class="team_name left_right_margin">'+store.get('name')+'</span></div>';
     }
     document.querySelector("#score_card").innerHTML = "";
     document.querySelector("#score_card").innerHTML = scoreCardDom;
 }
-
-  
-pubnub = new PubNub({
-    publishKey : 'pub-c-4c8b4681-1768-4bd1-b251-964e22884f07',
-    subscribeKey : 'sub-c-d487f296-2515-11e8-9bf4-060db84035e6'
-})
-    
-function publishSampleMessage() {
-    var publishConfig = {
-        channel : "hello_world",
-        message : "Hello from PubNub Docs!"
-    }
-    pubnub.publish(publishConfig, function(status, response) {
-        console.log(status, response);
-    })
-}
-    
-pubnub.addListener({
-    status: function(statusEvent) {
-        if (statusEvent.category === "PNConnectedCategory") {
-            publishSampleMessage();
-        }
-    },
-    message: function(message) {
-        console.log("New Message!!", message);
-    },
-    presence: function(presenceEvent) {
-        // handle presence
-    }
-})      
-console.log("Subscribing..");
-pubnub.subscribe({
-    channels: ['all'] 
-});

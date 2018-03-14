@@ -77,6 +77,25 @@ a {
   overflow: scroll;
 }
 
+#find_users {
+  position: fixed;
+  height: 100%;
+  width: 75%;
+  left: 300px;
+  padding: 20px;
+  padding-top: 40px;
+  text-align: center;
+  background: #FFF;
+  color: #000;
+  font-size: 40px;
+  font-family: Abel;
+  align-self: center;
+  text-align: center;
+  align-items: center;
+  min-width: 450px;
+  overflow: scroll;
+}
+
 #fb_login {
   position: relative;
   top: 200px;
@@ -197,7 +216,7 @@ input {
 
 #commentry_area {
   position: relative;
-  top: 30px;
+  top: 0px;
   width: 100%;
   text-align: center;
   font-size: 20px;
