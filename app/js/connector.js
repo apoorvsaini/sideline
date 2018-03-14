@@ -75,6 +75,7 @@ pubnub.addListener({
                 //got the request from same user that we chose
                 requestCame = true;
                 requestFrom = message.message.id;
+                console.log("GOT MESSAGE BACK");
                 startMatchSetup(message.message.channel);
             }
             else if (message.message.arrange == true && versus == "") {
@@ -123,6 +124,7 @@ function connectToUser(id) {
         }
         else if (requestCame == true && requestFrom == id) {
             //start the match
+            arrangeMatch(id,match_channel);
             startMatchSetup(match_channel);
         }
     }
