@@ -13,9 +13,17 @@ import jetpack from "fs-jetpack";
 import { sidebar, playground, field } from "./start/index";
 import env from "env";
 
+
 const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
-
+const Store = require('./store.js');
+const store = new Store({
+  configName: 'user-data',
+  defaults: {
+    windowBounds: { width: 800, height: 600 },
+    loggedin: true
+  }
+});
 const manifest = appDir.read("package.json", "json");
 
 const osMap = {
@@ -43,7 +51,19 @@ document.querySelector("#app").innerHTML = sidebar();
 document.querySelector("#playground").innerHTML = playground();
 document.querySelector("#field_area").innerHTML = field();
 
-//------Click Listeners-------
-document.querySelector("#login_btn").addEventListener("click", function(){
 
+//------Click Listeners & state maintainers-------
+document.querySelector("#login_btn").addEventListener("click", function(){
+  console.log("saving");
+  store.set('loggedin',true);
+  console.log(store.get('loggedin'));
 });
+
+var loggedin = store.get('loggedin');
+console.log(loggedin);
+if (loggedin == false) {
+  $("#login_btn").show();
+}
+else {
+  $("#login_btn").hide();
+}

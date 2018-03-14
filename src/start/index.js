@@ -1,4 +1,4 @@
-var loginDom = '<button id="login_btn" onClick="shoot()">Login via Google</button>';
+var loginDom = '<button id="login_btn" >Login via Google</button>';
 
 var scoreCardDom = '<div id="score_card"> <span class="team_name left_right_margin">'+matchDetails.awayTeam+'</span> '+matchDetails.homeScore+' : '+matchDetails.awayScore+' <span class="team_name left_right_margin">'+matchDetails.homeTeam+'</span></div> <div id="field_area"></div>';
 
@@ -12,7 +12,7 @@ export const playground = () => {
 };
 
 export const field = () => {
-  return '<div id="field"><span id="ball"></span></span></div><div id="commentry_area">LIVE COMMENTARY</div>';
+  return '<div id="field"><div id="ball"></div></span></div><div id="commentry_area">LIVE COMMENTARY</div>';
 };
 
 export const bye = () => {
