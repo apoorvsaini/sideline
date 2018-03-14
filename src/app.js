@@ -21,7 +21,11 @@ const store = new Store({
   configName: 'user-data',
   defaults: {
     windowBounds: { width: 800, height: 600 },
-    loggedin: true
+    loggedin: true,
+    name: "",
+    team_name: "",
+    team_id: null,
+    condition: 100
   }
 });
 const manifest = appDir.read("package.json", "json");
@@ -42,9 +46,9 @@ var config = {
 };
 
 //------Firebase Auth-------
-firebase.initializeApp(config);
-var provider = new firebase.auth.GoogleAuthProvider();
-
+//firebase.initializeApp(config);
+//var provider = new firebase.auth.GoogleAuthProvider();
+var loggedin = store.get('loggedin');
 
 document.querySelector("#app").style.display = "block";
 document.querySelector("#app").innerHTML = sidebar();
@@ -59,7 +63,7 @@ document.querySelector("#login_btn").addEventListener("click", function(){
   console.log(store.get('loggedin'));
 });
 
-var loggedin = store.get('loggedin');
+
 console.log(loggedin);
 if (loggedin == false) {
   $("#login_btn").show();
