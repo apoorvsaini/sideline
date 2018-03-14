@@ -44,6 +44,16 @@ function arrangeMatch(id,channel) {
     })
 }
 
+function sendMatchUpdate(comment,time) {
+    var publishConfig = {
+        channel : match_channel,
+        message : {"available":available,"id":store.get('team_id'),"name":store.get('name'),"channel":channel,"msg":comment,"time":time}
+    }
+    pubnub.publish(publishConfig, function(status, response) {
+        console.log(status, response);
+    })
+}
+
 
     
 pubnub.addListener({
@@ -63,11 +73,18 @@ pubnub.addListener({
             var userDom = "";
             for (var k in onlineUsers) {
                 if (onlineUsers[k]['available'] == "yes") {
-                    userDom += '<div> '+onlineUsers[k]["name"]+' <button onClick=\'connectToUser(\"'+k+',\"'+onlineUsers[k]["name"]+' \")\' >Play</button></div>';
+                    userDom += '<div> '+onlineUsers[k]["name"]+' <button onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >Play</button></div>';
                 }
             }
             $("#user_list").html(userDom);
             publishSingleAvailableMessage(message.message.id);
+        }
+
+        if (match_channel != "" && message.message.channel == match_channel && message.message == match_channel) {
+            //score updates
+            if (currMatch.get('self_venue') == 'away') {
+                updateMatchFromHost(message.message.comment,message.message.time);
+            }
         }
 
         if (message.channel == store.get('team_id')) {
@@ -153,14 +170,19 @@ function startMatchSetup(mc,name) {
     //change the UI
     $("#find_users").hide();
 
+    startMatch();
+    available = "no"; //turn it back to yes after match ends
+}
+
+
+function endMatchConnection() {
     //clear the defaults
     requestCame = false;
-    available = "no"; //turn it back to yes after match ends
+    available = "yes";
     versus = "";
     requestFrom = "";
     versusName = "";
     requestCame = false;
     requestSent = false;
     match_channel = "";
-
 }

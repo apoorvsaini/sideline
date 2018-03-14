@@ -38,7 +38,7 @@ if (name != '') loginDom = '<div id="profile_saved_area"> Welcome '+name+'!</div
 var scoreCardDom = '<div id="score_card"> <span class="team_name left_right_margin">'+name+'</span> '+currMatch.get('self_score')+' : '+currMatch.get('opp_score')+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span></div> <div id="field_area"></div>';
 
 if(venue == 'away') {
-  scoreCardDom = '<div id="score_card"> <span class="team_name left_right_margin">'+matchDetails.awayTeam+'</span> '+matchDetails.homeScore+' : '+matchDetails.awayScore+' <span class="team_name left_right_margin">'+matchDetails.homeTeam+'</span></div> <div id="field_area"></div>';
+  scoreCardDom = '<span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span> '+0+' : '+0+' <span class="team_name left_right_margin">'+store.get('name')+'</span></div>';
 }
 
 

@@ -80,11 +80,21 @@ function startMatch() {
         scoreCardDom = '<span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span> '+0+' : '+0+' <span class="team_name left_right_margin">'+store.get('name')+'</span></div>';
         document.querySelector("#score_card").innerHTML = "";
         document.querySelector("#score_card").innerHTML = scoreCardDom;
-
-        //start updater for PubNub listener
-        
+        if (inGame == false) {
+            inGame = true;
+            //animate ball
+            var top = $("#ball").position().top;
+            var left = $("#ball").position().left;
+            console.log(left);
+            ballIncrement = 700/90;
+            $("#ball").animate({ top: top, left: 680},180000);
+        }
     }
     else {
+        //update scorecard
+        document.querySelector("#score_card").innerHTML = "";
+        document.querySelector("#score_card").innerHTML = scoreCardDom;
+
         //update timer
         if (inGame == false) {
             inGame = true;
@@ -100,6 +110,18 @@ function startMatch() {
     }
 }
 
+function updateMatchFromHost(msg,time) {
+    timePassed = time;
+    if(timePassed >= 90) {
+        stopMatch();
+    }
+    $("#time_area").html(timePassed+"\'");
+    var item = $("<div id='"+timePassed+"'>"+msg+"</div>").hide().fadeIn(1000);
+    $("#commentary_box").append(item);
+    var objDiv = document.getElementById("commentary_box");
+    objDiv.scrollTop = objDiv.scrollHeight;
+}
+
 function updateMatch() {
     timePassed += 1;
     if(timePassed >= 90) {
@@ -110,8 +132,9 @@ function updateMatch() {
     
     //generate commentary
     var com = comment(); 
-    // add to commentary
-    
+
+    // add to commentary and send update
+    sendMatchUpdate(com,timePassed);
     var item = $("<div id='"+timePassed+"'>"+com+"</div>").hide().fadeIn(1000);
     $("#commentary_box").append(item);
     var objDiv = document.getElementById("commentary_box");
