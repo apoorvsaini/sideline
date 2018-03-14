@@ -77,6 +77,9 @@ pubnub.addListener({
                 requestFrom = message.message.id;
                 startMatchSetup(message.message.channel);
             }
+            else if (message.message.arrange == true && versus == "") {
+                match_channel = message.message.channel;
+            }
             else {
                 onlineUsers[message.message.id] = {};
                 onlineUsers[message.message.id]['available'] = message.message.available;
@@ -110,10 +113,10 @@ function connectToUser(id) {
         //create a channel to join for match
         versus = id;
         requestSent = true;
-        match_channel = store.get('team_id')+"_"+id;
-    
+
         //send a message to id to join as visitor
         if (requestCame == false && requestFrom != id) {
+            match_channel = store.get('team_id')+"_"+id;
             arrangeMatch(id,match_channel);
         }
         else if (requestCame == true && requestFrom == id) {
