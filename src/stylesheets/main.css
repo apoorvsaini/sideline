@@ -238,9 +238,9 @@ input {
 #commentary_box {
   position: relative;
   top: 20px;
-  height: 100px;
+  height: 150px;
   overflow: hidden;
-  font-size: 15px;
+  font-size: 25px;
 }
 
 .player_away {
