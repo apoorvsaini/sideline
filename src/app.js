@@ -18,14 +18,17 @@ const app = remote.app;
 const appDir = jetpack.cwd(app.getAppPath());
 const Store = require('./store.js');
 const store = new Store({
-  configName: 'user-data',
+  configName: 'user-data2',
   defaults: {
     windowBounds: { width: 800, height: 600 },
-    loggedin: true,
-    name: "",
+    loggedin: false,
+    name: "Apoorv",
     team_name: "",
     team_id: null,
-    condition: 100
+    condition: 100,
+    wins:0,
+    losses:0,
+    draws: 0
   }
 });
 const manifest = appDir.read("package.json", "json");
@@ -57,10 +60,9 @@ document.querySelector("#field_area").innerHTML = field();
 
 
 //------Click Listeners & state maintainers-------
+store.set('loggedin',false);
 document.querySelector("#login_btn").addEventListener("click", function(){
-  console.log("saving");
-  store.set('loggedin',true);
-  console.log(store.get('loggedin'));
+  
 });
 
 

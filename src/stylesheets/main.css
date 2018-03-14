@@ -87,9 +87,48 @@ a {
   text-align: center;
 }
 
+#profile_area {
+  position: relative;
+  top: 40px;
+}
+
+#profile_saved_area {
+  position: relative;
+  top: 40px;
+  font-size: 20px;
+}
+
 #login_btn {
   position: relative;
-  top: 80px;
+  top: 0px;
+}
+
+#name_input {
+  position: relative;
+  top: 10px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #FFF;
+  opacity: 1; /* Firefox */
+}
+
+input {
+  border: none;
+  font-family: Mina;
+  overflow: auto;
+  outline: none;
+  color: #FFF;
+  font-size: 40px;
+  font-family: Abel;
+  border-radius: 10px;
+  font-size: 20px;
+  background: #351f68;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  padding-left: 10px;
+  width: 80%;
 }
 
 #logo {
@@ -119,7 +158,7 @@ a {
   position: relative;
   width: 100%;
   height: 20px;
-  background: url("../assets/img/pitch.png");
+  background: rgb(255, 251, 20);
   border-radius: 20px;
   background-size: 100% 100%;
 }
