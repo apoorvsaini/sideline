@@ -74,17 +74,29 @@ var timePassed = 0;
 var totalWidth = 0;
 var ballIncrement = 0;
 function startMatch() {
-    //update timer
-    if (inGame == false) {
-        inGame = true;
-        matchTimer = setInterval(updateMatch, 2000);
+    var scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+'</span> '+0+' : '+0+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span></div>';
 
-        //animate ball
-        var top = $("#ball").position().top;
-        var left = $("#ball").position().left;
-        console.log(left);
-        ballIncrement = 700/90;
-        $("#ball").animate({ top: top, left: 680},180000);
+    if (currMatch.get('self_venue') == "away") {
+        scoreCardDom = '<span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span> '+0+' : '+0+' <span class="team_name left_right_margin">'+store.get('name')+'</span></div>';
+        document.querySelector("#score_card").innerHTML = "";
+        document.querySelector("#score_card").innerHTML = scoreCardDom;
+
+        //start updater for PubNub listener
+        
+    }
+    else {
+        //update timer
+        if (inGame == false) {
+            inGame = true;
+            matchTimer = setInterval(updateMatch, 2000);
+
+            //animate ball
+            var top = $("#ball").position().top;
+            var left = $("#ball").position().left;
+            console.log(left);
+            ballIncrement = 700/90;
+            $("#ball").animate({ top: top, left: 680},180000);
+        }
     }
 }
 
@@ -135,7 +147,7 @@ function updateScore(team) {
     var oppScore = currMatch.get('opp_score');
     var ven = currMatch.get('self_venue');
 
-    var scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+'</span> '+1+' : '+2+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span></div>';
+    var scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+'</span> '+0+' : '+0+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+'</span></div>';
     if (team == 'self') {
         var confettiSettings = { target: 'confetti', max:10 };
         var confetti = new ConfettiGenerator(confettiSettings);
