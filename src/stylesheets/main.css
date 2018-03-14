@@ -223,6 +223,15 @@ input {
   height: auto;
 }
 
+#online_users {
+  position: relative;
+  margin: auto;
+  font-size: 20px;
+  width: 70%;
+  text-align: center;
+  height: auto;
+}
+
 #away_1 {
   position: absolute;
   left: 70px;

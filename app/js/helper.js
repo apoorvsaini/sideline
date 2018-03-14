@@ -40,7 +40,6 @@ currMatch.set('self_score',0);
 
 
 var inGame = false;
-
 var playerWithBall = "away_1"; //hold the id
 var versus = ""; //user_id of opponent
 var versus_color = "" //color of opponent

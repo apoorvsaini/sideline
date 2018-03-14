@@ -53,7 +53,7 @@ var config = {
 //var provider = new firebase.auth.GoogleAuthProvider();
 var loggedin = store.get('loggedin');
 
-//document.querySelector("#find_users").style.display = "block";
+document.querySelector("#find_users").style.display = "block";
 document.querySelector("#app").style.display = "block";
 document.querySelector("#app").innerHTML = sidebar();
 document.querySelector("#playground").innerHTML = playground();
