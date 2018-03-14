@@ -149,6 +149,8 @@ pubnub.subscribe({
 
 function requestToUser(id) {
     $("#"+id).hide();
+    versus = id;
+    requestSent = true;
 }
 
 
@@ -160,6 +162,10 @@ function connectToUser(id,name) {
         requestSent = true;
 
         //send a message to id to join as visitor
+        //start the match
+        arrangeMatch(id,match_channel);
+        startMatchSetup(match_channel,name);
+         /*
         if (requestCame == false && requestFrom != id) {
             match_channel = store.get('team_id')+"_"+id;
             arrangeMatch(id,match_channel);
@@ -169,6 +175,7 @@ function connectToUser(id,name) {
             arrangeMatch(id,match_channel);
             startMatchSetup(match_channel,name);
         }
+        */
     }
 }
 
