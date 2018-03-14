@@ -29,7 +29,7 @@ var opp_name = currMatch.get('opp_name');
 var venue = currMatch.get('self_venue');
 console.log(store);
 
-var loginDom = '<div id="profile_area"><input id="name_input" placeholder="Your Team\'s Name"/><button id="login_btn" onClick="saveName()">Save Profile</button></div>';
+var loginDom = '<div id="profile_area"><input id="name_input" placeholder="Your Team\'s Name"/><button id="login_btn" onClick="saveName()">Create Team</button></div>';
 
 var userScore = '<div id="profile_score_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div>';
 

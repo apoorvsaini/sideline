@@ -79,7 +79,7 @@ function sendChat(msg) {
             channel : "chat",
             message : {"available":available,"sender":store.get('team_id'),"name":store.get('name'),"chat":msg,"msg":""}
         }
-        
+
         pubnub.publish(publishConfig, function(status, response) {
             console.log(status, response);
         })
@@ -191,7 +191,10 @@ function trySubscribe() {
     });
 }
 
+var timeOut = null;
+
 function connectToUser(id,name) {
+    timeOut = setTimeout(endMatchConnection, 10000);
     $("#user_list").hide();
     $(".sk-folding-cube").show();
 
@@ -213,8 +216,12 @@ function connectToUser(id,name) {
     }
 }
 
+
+
 function startMatchSetup(mc,name) {
     //send a msg to tell you are unavailable to others
+    clearTimeout(timeOut);
+    timeOut = null;
     publishAvailableMessage();
     $(".sk-folding-cube").show();
     /*
@@ -254,7 +261,7 @@ function startMatchSetup(mc,name) {
 function endMatchConnection() {
     //clear the defaults
     $("#user_list").show();
-    $(".sk-folding-cube").hide();
+    //$(".sk-folding-cube").hide();
     requestCame = false;
     available = "yes";
     versus = "";

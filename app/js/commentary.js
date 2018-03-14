@@ -12,7 +12,7 @@ var events = ["foul","goal","miss","yellow","pass","cross","tackle","shoot","thr
 var goalEmotions = ["IT IS IN!","GOALLLL!!!","WHAT A STRIKE!","AMAZING GOAL!","OFF THE FAR POST AND IN TO THE NET!","FOUND THE BACK OF THE NET"]; //6
 var matchEvents = ["PENALTY AWARDED!","CORNER KICK AWARDED","FREE KICK","A chance to score"];
 var goalDescriptions = ["Chips over the goalkeeper","Shoots from 30 yards out","Collects the ball and tucks in beautifully","Dribbles past the defenders and shoots","Had a one on one with GK"]; //5
-var goalMiss = ["Oooo! The ball goes wide","What a save by the goal-keeper","Defender comes in between and blocks the shot","Blocked by the goalie","Offside"]; //5
+var goalMiss = ["Oooo! The ball goes wide","What a save by the goal-keeper","Defender comes in between and blocks the shot","Blocked by the goalie","but caught Offside"]; //5
 var fillers = ["keeps the possession","are playing an attacking game","are trying to create a chance","wins the possesion","\'s attackingkiller move","in defence mode"]; //5
 var foulPlay = ["Foul play by","Dirty tackle by","Looks like a foul by","Ooo! Bad tackle by"] //4
 

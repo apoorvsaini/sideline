@@ -15,14 +15,10 @@
       "node_modules/**/*",
       "package.json"
     ],
-    "win": {
-      "target": "nsis",
-      "icon": "resources/icon.ico"
-    },
     "directories": {
       "buildResources": "resources"
     },
-    "publish": null
+    "publish": true
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
@@ -34,6 +30,7 @@
     "start": "node build/start.js",
     "dist": "build",
     "release": "npm test && webpack --config=build/webpack.app.config.js --env=production && electron-builder"
+
   },
   "dependencies": {
     "confetti-js": "0.0.11",
