@@ -1,3 +1,28 @@
+const currMatch = new Store({
+    configName: 'match-data',
+    defaults: {
+      opp_name: "Opponent",
+      self_venue: "home",
+      self_score: 0,
+      opp_score: 0
+    }
+  });
+
+const store = new Store({
+    configName: 'user-data',
+    defaults: {
+        windowBounds: { width: 800, height: 600 },
+        loggedin: false,
+        name: "Apoorv",
+        team_name: "",
+        team_id: null,
+        condition: 100,
+        wins:0,
+        losses:0,
+        draws: 0
+    }
+});
+
 var matchDetails = {homeScore: 0, awayScore: 0, time: 0, awayTeam:"Chelsea FC", homeTeam:"Barcelona FC"};
 var playerWithBall = "away_1"; //hold the id
 var versus = ""; //user_id of opponent
@@ -18,17 +43,42 @@ function shoot() {
     }
 }
 
-function dribble() {
-    var ball = document.getElementById("ball");
-    var left = $("#"+playerWithBall).position().left;
-    var top = $("#"+playerWithBall).position().top; 
-    $("#ball").css({
-        'left':left,
-        'top': top
-       });
-    console.log(left+" "+top);
-    //$("#ball").animate({ top: top, left: left},600);
-    //$("#"+playerWithBall).animate({ top: top, left: left},1200);
+var matchTimer = null;
+var timePassed = 0;
+var totalWidth = 0;
+var ballIncrement = 0;
+function startMatch() {
+    //update timer
+    matchTimer = setInterval(updateMatch, 2000);
+    totalWidth = document.getElementById('field').offsetWidth;
+    ballIncrement = totalWidth/90;
+}
+
+function updateMatch() {
+    timePassed += 1;
+    if(timePassed >= 90) {
+        stopMatch();
+    }
+
+    $("#time_area").html(timePassed+"\'");
+    
+    //animate ball
+    var top = $("#ball").position().top;
+    var left = $("#ball").position().left;
+    $("#ball").animate({ top: top, left: left+ballIncrement},2000);
+
+    //initiate commentary algo 
+}
+
+function stopMatch(){
+    clearInterval(matchTimer)
+}
+
+function updateScore() {
+    console.log("yo");
+    var scoreCardDom = '<span class="team_name left_right_margin">'+store.get('name')+' FC</span> '+1+' : '+2+' <span class="team_name left_right_margin">'+currMatch.get('opp_name')+' FC</span></div>';
+    document.querySelector("#score_card").innerHTML = "";
+    document.querySelector("#score_card").innerHTML = scoreCardDom;
 }
 
   

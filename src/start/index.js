@@ -31,7 +31,7 @@ console.log(store);
 
 var loginDom = '<div id="profile_area"><input id="name_input" placeholder="Your Name"/><button id="login_btn" >Save Profile</button></div>';
 
-var userScore = '<div id="profile_saved_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div>';
+var userScore = '<div id="profile_saved_area"> W: '+store.get('wins')+' L: '+store.get('losses')+' D: '+store.get('draws')+' </div><button id="startMatch" onCLick="startMatch()">start</button>';
 
 if (name != '') loginDom = '<div id="profile_saved_area"> Welcome '+name+'!</div>';
 
@@ -52,7 +52,7 @@ export const playground = () => {
 };
 
 export const field = () => {
-  return '<div id="field"><div id="ball"></div></span></div><div id="commentry_area">LIVE COMMENTARY</div>';
+  return '<div id="field"><div id="ball"></div></span></div><div id="time_area">0\'</div><div id="commentry_area">LIVE COMMENTARY</div>';
 };
 
 export const bye = () => {
