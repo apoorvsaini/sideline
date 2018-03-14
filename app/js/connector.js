@@ -15,7 +15,11 @@ var match_channel = "";
 var willHost = false;
 if (inGame == true) {available = "no";}
 
+
+
 function publishAvailableMessage() {
+    $(".sk-folding-cube").show();
+    
     var publishConfig = {
         channel : "all",
         message : {"available":available,"id":store.get('team_id'),"name":store.get('name')}
@@ -70,14 +74,6 @@ function sendScoreUpdate(team) {
 
 
 function sendChat(msg) {
-    var confettiSettings = { target: 'confetti', max:10 };
-        var confetti = new ConfettiGenerator(confettiSettings);
-        confetti.render();
-
-        setTimeout(stopConfetti, 5000);
-        function stopConfetti() {
-            confetti.clear();
-        }
     var publishConfig = {
         channel : "chat",
         message : {"available":available,"sender":store.get('team_id'),"name":store.get('name'),"chat":msg,"msg":""}
@@ -104,9 +100,12 @@ pubnub.addListener({
 
             //update UI
             var userDom = "";
+            if(onlineUsers.length > 0) {
+                $(".sk-folding-cube").hide();
+            }
             for (var k in onlineUsers) {
                 if (onlineUsers[k]['available'] == "yes") {
-                    userDom += '<div> '+onlineUsers[k]["name"]+' <button id="'+k+'" onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >PLAY</button></div>';
+                    userDom += '<div> '+onlineUsers[k]["name"]+' <button class="join_btn" id="'+k+'" onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >PLAY</button></div><br><br>';
                 }
             }
             $("#user_list").html(userDom);
@@ -158,9 +157,12 @@ pubnub.addListener({
 
                 //update UI
                 var userDom = "";
+                if(onlineUsers.length > 0) {
+                    $(".sk-folding-cube").hide();
+                }
                 for (var k in onlineUsers) {
                     if (onlineUsers[k]['available'] == "yes") {
-                        userDom += '<div> '+onlineUsers[k]["name"]+' <button id="'+k+'"  onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >Play</button></div>';
+                        userDom += '<div> '+onlineUsers[k]["name"]+' <button class="join_btn" id="'+k+'"  onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >Play</button></div><br><br>';
                     }
                 }
                 $("#user_list").html(userDom);
@@ -182,7 +184,9 @@ pubnub.subscribe({
 
 
 function connectToUser(id,name) {
-    $("#"+id).hide();
+    $("#user_list").hide();
+    $(".sk-folding-cube").show();
+
     if(requestSent == false) {
         //create a channel to join for match
         versus = id;
@@ -204,7 +208,7 @@ function connectToUser(id,name) {
 function startMatchSetup(mc,name) {
     //send a msg to tell you are unavailable to others
     publishAvailableMessage();
-
+    $(".sk-folding-cube").show();
     /*
     pubnub.subscribe({
         channels: [mc] 
@@ -241,6 +245,8 @@ function startMatchSetup(mc,name) {
 
 function endMatchConnection() {
     //clear the defaults
+    $("#user_list").show();
+    $(".sk-folding-cube").hide();
     requestCame = false;
     available = "yes";
     versus = "";

@@ -64,7 +64,7 @@ function comment() {
             else action = timePassed+"\' :"+holderName+"\'s #"+playerNumber+" goes for a goal and";
             
             if (ballHolder == 'self') {
-                if (selfMorale+selfEnergy >= opponentEnergy+opponentMorale && selfEnergy >= 30) {
+                if (selfMorale+selfEnergy >= opponentEnergy+opponentMorale &&  selfEnergy >= opponentEnergy) {
                     //Goal
                     selfMorale += 1; 
                     selfEnergy += 1;
@@ -78,7 +78,7 @@ function comment() {
                 else return action += " "+goalMiss[Math.floor(Math.random() * 5)];
             }
             else {
-                if (selfMorale+selfEnergy <= opponentEnergy+opponentMorale && opponentEnergy >= 30) {
+                if (selfMorale+selfEnergy <= opponentEnergy+opponentMorale && selfEnergy <= opponentEnergy) {
                     //Goal
                     selfMorale -= 1; 
                     selfEnergy -= 1;

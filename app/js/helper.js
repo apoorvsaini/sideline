@@ -179,6 +179,7 @@ function stopMatch(){
     endMatchConnection();
     inGame = false;
     $("#exit_btn").show();
+    timePassed = 0;
 }
 
 function updateScore(team) {
@@ -222,7 +223,7 @@ function resetConnection() {
     $("#commentary_box").html("");
     var top = $("#ball").position().top;
     var left = $("#ball").position().left;
-    $("#ball").animate({ top: top, left: left-700},1);
+    $("#ball").animate({ top: top, left: 0},1);
     pubnub.subscribe({
         channels: ['all',store.get('team_id')] 
     });
