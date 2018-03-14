@@ -7,7 +7,8 @@ pubnub = new PubNub({
 
 var available = "yes";
 if (inGame == true) {available = "no";}
-function publishSampleMessage() {
+
+function publishAvailableMessage() {
     var publishConfig = {
         channel : "all",
         message : {"available":available,"id":store.get('team_id'),"name":store.get('name')}
@@ -32,11 +33,14 @@ pubnub.addListener({
             onlineUsers[message.message.id]['name'] = message.message.name;
 
             //update UI
+            var userDom = "";
             for (var k in onlineUsers) {
-                if (onlineUsers[k] == "yes") {
-                    var userDom = "<div> "+onlineUsers[k]['name']+" <button onClick='connectToUser(\'"+k+"\')' >Play</button></div>";
+                if (onlineUsers[k]['available'] == "yes") {
+                    userDom += '<div> '+onlineUsers[k]["name"]+' <button onClick=\'connectToUser(\"'+k+'\")\' >Play</button></div>';
                 }
             }
+            $("#user_list").html(userDom);
+            publishAvailableMessage();
         }   
         console.log(onlineUsers);
     },
@@ -45,8 +49,12 @@ pubnub.addListener({
         var uuid = p.uuid;
         console.log(uuid);
     }
-})      
+})  
 console.log("Subscribing..");
 pubnub.subscribe({
     channels: ['all',store.get('team_id')] 
 });
+
+function connectToUser(id) {
+    //send a message
+}
