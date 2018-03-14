@@ -57,11 +57,11 @@ function comment() {
     switch(actionNumber){
         case 0:
             //foul
-            return timePassed+"\' :"+holderName+"\'s #"+playerNumber+" tries to tackle and it is a foul";
+            return timePassed+"\' : "+holderName+"\'s #"+playerNumber+" tries to tackle and it is a foul";
         case 1:
             //attempt to goal
             if (ballHolder == 'self') action = timePassed+"\' :"+holderName+"\'s #"+playerNumber+" goes for a goal";
-            else action = timePassed+"\' :"+holderName+"\'s #"+playerNumber+" goes for a goal and";
+            else action = timePassed+"\' : "+holderName+"\'s #"+playerNumber+" goes for a goal and";
             
             if (ballHolder == 'self') {
                 if (selfMorale+selfEnergy >= opponentEnergy+opponentMorale &&  selfEnergy >= opponentEnergy) {
