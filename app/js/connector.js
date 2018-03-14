@@ -55,12 +55,11 @@ function sendMatchUpdate(comment,time) {
     })
 }
 
-function sendScroeUpdate(team) {
-    if (team == 'self') team = 'opponent';
-    else team = 'self';
+function sendScoreUpdate(team) {
+    console.log("sending goal!");
     var publishConfig = {
         channel : match_channel,
-        message : {"available":available,"id":store.get('team_id'),"name":store.get('name'),"channel":match_channel,"msg":comment,"time":time,"goal":team}
+        message : {"available":available,"id":store.get('team_id'),"name":store.get('name'),"channel":match_channel,"msg":"","goal":team}
     }
     
     pubnub.publish(publishConfig, function(status, response) {
@@ -77,7 +76,6 @@ pubnub.addListener({
         }
     },
     message: function(message) {
-        console.log("New Message!!", message);
         if (message.channel == "all" && message.message.id != store.get('team_id')) {
             onlineUsers[message.message.id] = {};
             onlineUsers[message.message.id]['available'] = message.message.available;
@@ -96,12 +94,14 @@ pubnub.addListener({
 
         if (match_channel != "" && message.channel == match_channel && "msg" in message.message) {
             //score updates
-            console.log(message);
             if (currMatch.get('self_venue') == 'away') {
-                updateMatchFromHost(message.message.msg,message.message.time);
-            }
-            if (message.message.goal != "") {
-                updateScore(message.message.goal);
+                if (message.message.goal != "") {
+                    console.log("New Message!!", message);
+                    updateScore(message.message.goal);
+                }
+                else {
+                    updateMatchFromHost(message.message.msg,message.message.time);
+                }
             }
         }
 

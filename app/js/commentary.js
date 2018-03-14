@@ -71,6 +71,7 @@ function comment() {
                     opponentMorale -= 2; 
                     opponentEnergy -= 2;
                     updateScore('self');
+                    sendScoreUpdate('opponent');
                     return action += " "+goalEmotions[Math.floor(Math.random() * 6)]+" "+goalDescriptions[Math.floor(Math.random() * 4)];
                 } 
 
@@ -84,6 +85,7 @@ function comment() {
                     opponentMorale += 1; 
                     opponentEnergy += 1;
                     updateScore('opponent');
+                    sendScoreUpdate('self');
                     return action += " "+goalEmotions[Math.floor(Math.random() * 6)]+" "+goalDescriptions[Math.floor(Math.random() * 4)];
                 } 
                 else return action += " "+goalMiss[Math.floor(Math.random() * 5)];
