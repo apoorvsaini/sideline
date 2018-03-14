@@ -1,5 +1,5 @@
 // The logic for randomized algo and generating commentary
-var players = [1,2,3,4,5,6,7,8,9,10,11];
+var players = [2,3,4,5,6,7,8,9,10,11];
 var ballHolder = "self"; // opponent for other player
 var selfMorale = 100;
 var opponentMorale = 100;

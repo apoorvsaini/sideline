@@ -75,7 +75,9 @@ function updateMatch() {
     //generate commentary
     var com = comment(); 
     // add to commentary
-    $("#commentary_box").append("<div>"+com+"</div>");
+    
+    var item = $("<div id='"+timePassed+"'>"+com+"</div>").hide().fadeIn(1000);
+    $("#commentary_box").append(item);
     var objDiv = document.getElementById("commentary_box");
     objDiv.scrollTop = objDiv.scrollHeight;
 }

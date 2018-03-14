@@ -166,8 +166,8 @@ input {
 #commentary_box {
   position: relative;
   top: 20px;
-  height: 150px;
-  overflow: auto;
+  height: 100px;
+  overflow: hidden;
   font-size: 15px;
 }
 
