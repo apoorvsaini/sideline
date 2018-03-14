@@ -86,14 +86,14 @@ pubnub.addListener({
             var userDom = "";
             for (var k in onlineUsers) {
                 if (onlineUsers[k]['available'] == "yes") {
-                    userDom += '<div> '+onlineUsers[k]["name"]+' <button id="'+k+'" onClick=\'requestToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >REQUEST</button></div>';
+                    userDom += '<div> '+onlineUsers[k]["name"]+' <button id="'+k+'" onClick=\'connectToUser(\"'+k+'\",\"'+onlineUsers[k]["name"]+'\")\' >REQUEST</button></div>';
                 }
             }
             $("#user_list").html(userDom);
             publishSingleAvailableMessage(message.message.id);
         }
 
-        if (match_channel != "" && message.channel == match_channel && "msg" in message.message) {
+        if (match_channel != "" && "msg" in message.message) {
             //score updates
             if (currMatch.get('self_venue') == 'away') {
                 if (message.message.goal != "") {
@@ -148,11 +148,6 @@ pubnub.subscribe({
     channels: ['all',store.get('team_id')] 
 });
 
-function requestToUser(id) {
-    $("#"+id).hide();
-    versus = id;
-    requestSent = true;
-}
 
 
 function connectToUser(id,name) {
@@ -161,9 +156,9 @@ function connectToUser(id,name) {
         //create a channel to join for match
         versus = id;
         requestSent = true;
+        match_channel = id;
         
         if (requestCame == false && requestFrom != id) {
-            match_channel = id;
             arrangeMatch(id,match_channel);
         }
         else if (requestCame == true && requestFrom == id) {
