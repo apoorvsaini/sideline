@@ -13,7 +13,7 @@ The current app is still in beta so there might be some bugs, but do clone/fork 
 
 ```
 npm install 
-npm run
+npm start
 ```
 
 **How to package it for MacOS?**
