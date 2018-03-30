@@ -24,4 +24,4 @@ electron-packager . --overwrite --platform=darwin --arch=x64 --icon=resources/ic
 
 Read more about the game on Medium: https://medium.com/@apoorvsaini/building-sideline-18-a-multiplayer-football-manager-game-for-desktop-f78e6957f543
 
-<img src="https://cdn-images-1.medium.com/max/1200/1*sgMtFCcFUG-0VoOrZOYeeA.png" width="100" height="100" alt="Sideline '18"/>
+<img src="https://cdn-images-1.medium.com/max/1200/1*sgMtFCcFUG-0VoOrZOYeeA.png" alt="Sideline '18"/>
